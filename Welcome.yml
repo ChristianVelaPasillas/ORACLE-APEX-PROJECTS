@@ -1,0 +1,20 @@
+name: New issue greeting
+
+on:
+    issues:
+        types: [opened]
+
+jobs:
+    comment:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Add a greeting comment
+              uses: actions/github-script@v6
+              with:
+                  script: |
+                      await github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: 'Thank you for posting this issue. 🙇🏼‍♂️\n\nWe will come back to you shortly.\n\nBest regards,\nChris'
+                      });
